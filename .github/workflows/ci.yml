@@ -7,6 +7,7 @@ on:
     branches:
       - main
       - ci-cd
+      - production-kubernetes
   pull_request:
     branches:
       - main
@@ -27,8 +28,16 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install -r services/home-service/requirements.txt
 
-      - name: Check application
+      - name: Check Python syntax
         run: |
-          python -m py_compile app.py
+          python -m py_compile services/home-service/src/app.py
+
+      - name: Build Docker image
+        run: |
+          docker build -t blue-vault-home:latest services/home-service
+
+      - name: Validate Kubernetes manifests
+        run: |
+          kubectl apply --dry-run=client -f k8s/
