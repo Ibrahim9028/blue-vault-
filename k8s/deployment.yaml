@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blue-vault-home
+  namespace: blue-vault
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: blue-vault-home
+  template:
+    metadata:
+      labels:
+        app: blue-vault-home
+    spec:
+      containers:
+        - name: blue-vault-home
+          image: blue-vault-home:1.0
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 5000
