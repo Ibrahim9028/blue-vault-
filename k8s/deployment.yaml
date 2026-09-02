@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: blue-vault-home
-          image: blue-vault-home:1.1
+          image: ghcr.io/ibrahim9028/blue-vault-home:latest
           imagePullPolicy: Never
 
           env:
