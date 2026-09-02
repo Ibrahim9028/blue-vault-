@@ -25,12 +25,10 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        working-directory: services/home-service
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Check Python application
-        working-directory: services/home-service
+      - name: Check application
         run: |
-          python -m py_compile src/app.py
+          python -m py_compile app.py
