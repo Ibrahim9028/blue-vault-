@@ -1,21 +1,58 @@
+
+
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: blue-vault-home
   namespace: blue-vault
+
 spec:
   replicas: 1
+
   selector:
     matchLabels:
       app: blue-vault-home
+
   template:
     metadata:
       labels:
         app: blue-vault-home
+
     spec:
       containers:
         - name: blue-vault-home
-          image: blue-vault-home:1.0
+          image: blue-vault-home:1.1
           imagePullPolicy: Never
+
+          env:
+            - name: APP_ENV
+              valueFrom:
+                configMapKeyRef:
+                  name: blue-vault-config
+                  key: APP_ENV
+
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "250m"
+              memory: "256Mi"
+
           ports:
             - containerPort: 5000
+
+          livenessProbe:
+            httpGet:
+              path: /live
+              port: 5000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 5000
+            initialDelaySeconds: 5
+            periodSeconds: 5

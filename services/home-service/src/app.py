@@ -1,3 +1,7 @@
+
+
+
+
 from flask import Flask, jsonify
 
 app = Flask(__name__)
@@ -16,6 +20,20 @@ def home():
 def health():
     return jsonify({
         "status": "UP"
+    })
+
+
+@app.get("/live")
+def live():
+    return jsonify({
+        "status": "ALIVE"
+    })
+
+
+@app.get("/ready")
+def ready():
+    return jsonify({
+        "status": "READY"
     })
 
 
