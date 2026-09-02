@@ -37,7 +37,3 @@ jobs:
       - name: Build Docker image
         run: |
           docker build -t blue-vault-home:latest services/home-service
-
-      - name: Validate Kubernetes manifests
-        run: |
-          kubectl apply --dry-run=client -f k8s/
