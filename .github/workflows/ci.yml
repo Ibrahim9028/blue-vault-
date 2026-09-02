@@ -1,6 +1,5 @@
 
 
-
 name: Blue Vault CI
 
 on:
@@ -41,7 +40,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t ghcr.io/${{ github.repository_owner }}/blue-vault-home:latest services/home-service
+          docker build -t ghcr.io/ibrahim9028/blue-vault-home:latest services/home-service
 
       - name: Login to GHCR
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
@@ -54,4 +53,4 @@ jobs:
       - name: Push Docker image to GHCR
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
-          docker push ghcr.io/${{ github.repository_owner }}/blue-vault-home:latest
+          docker push ghcr.io/ibrahim9028/blue-vault-home:latest
