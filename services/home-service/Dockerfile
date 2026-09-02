@@ -1,3 +1,5 @@
+
+
 FROM python:3.12-slim
 
 WORKDIR /app
@@ -10,4 +12,4 @@ COPY src/ ./src/
 
 EXPOSE 5000
 
-CMD ["python", "src/app.py"]
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "src.app:app"]
